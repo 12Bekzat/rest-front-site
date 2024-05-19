@@ -19,6 +19,8 @@ import Cart from '../../pages/Cart';
 import Payment from '../../pages/Payment';
 import { LoaderProvider } from '../../providers/LoaderProvider';
 import Profile from '../../pages/Profile';
+import Login from '../../pages/Login';
+import Register from '../../pages/Register';
 
 function App() {
   return (
@@ -48,6 +50,8 @@ function App() {
             <Route path='/payment' element={<Payment />} />
             <Route path='/profile' element={<Profile />} />
             <Route path='/my/edit' element={<EditUser my={true}/>} />
+            <Route path='/login' element={<Login/>} />
+            <Route path='/register' element={<Register/>} />
           </Routes>
 
           <Footer />

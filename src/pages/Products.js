@@ -14,7 +14,7 @@ const Products = () => {
                             <div className="table__search">
                                 <input autoComplete='off' type="text" id='search' placeholder='Поиск по имени' />
                                 <label htmlFor="search">
-                                    <i class="fa-solid fa-magnifying-glass"></i>
+                                    <i className="fa-solid fa-magnifying-glass"></i>
                                 </label>
                             </div>
                         </div>

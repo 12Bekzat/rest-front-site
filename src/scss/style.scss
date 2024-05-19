@@ -1354,6 +1354,23 @@
     padding: 50px;
     box-shadow: 0 0 15px rgba($color: #000000, $alpha: 0.05);
 
+    &__ex {
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        right: 0;
+        width: 40px;
+        height: 40px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        i {
+            font-size: 18px;
+            color: #62CA7F;
+        }
+    }
+
     &__img {
         width: 100px;
         align-self: center;
@@ -1384,7 +1401,20 @@
         gap: 16px;
     }
 
+    &__link {
+        width: 100%;
+        margin-top: 12px;
+        font-size: 14px;
+        color: #999999;
+        text-align: end;
+
+        a {
+            color: #2A8EC0;
+        }
+    }
+
     &__input {
+        position: relative;
         width: 100%;
         display: flex;
         overflow: hidden;
@@ -1531,4 +1561,11 @@
         font-weight: 600;
         color: #000000;
     }
+}
+
+.login {
+    width: 100%;
+    display: flex;
+    height: 100%;
+    justify-content: center;
 }

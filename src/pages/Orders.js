@@ -12,7 +12,7 @@ const Orders = () => {
                             <div className="table__search">
                                 <input autoComplete='off' type="text" id='search' placeholder='Поиск по имени' />
                                 <label htmlFor="search">
-                                    <i class="fa-solid fa-magnifying-glass"></i>
+                                    <i className="fa-solid fa-magnifying-glass"></i>
                                 </label>
                             </div>
                         </div>
@@ -75,10 +75,10 @@ const Orders = () => {
                                 </div>
                                 <div className="table__item">
                                     <div className="table__icon">
-                                        <i class="fa-solid fa-pen-fancy"></i>
+                                        <i className="fa-solid fa-pen-fancy"></i>
                                     </div>
                                     <div className="table__icon del">
-                                        <i class="fa-solid fa-trash"></i>
+                                        <i className="fa-solid fa-trash"></i>
                                     </div>
                                 </div>
                             </div>
@@ -124,10 +124,10 @@ const Orders = () => {
                                 </div>
                                 <div className="table__item">
                                     <div className="table__icon">
-                                        <i class="fa-solid fa-pen-fancy"></i>
+                                        <i className="fa-solid fa-pen-fancy"></i>
                                     </div>
                                     <div className="table__icon del">
-                                        <i class="fa-solid fa-trash"></i>
+                                        <i className="fa-solid fa-trash"></i>
                                     </div>
                                 </div>
                             </div>
@@ -173,10 +173,10 @@ const Orders = () => {
                                 </div>
                                 <div className="table__item">
                                     <div className="table__icon">
-                                        <i class="fa-solid fa-pen-fancy"></i>
+                                        <i className="fa-solid fa-pen-fancy"></i>
                                     </div>
                                     <div className="table__icon del">
-                                        <i class="fa-solid fa-trash"></i>
+                                        <i className="fa-solid fa-trash"></i>
                                     </div>
                                 </div>
                             </div>

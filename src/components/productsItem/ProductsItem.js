@@ -17,8 +17,8 @@ const ProductsItem = ({ price, oldPrice, name, img, tags, admin, count, date }) 
             </div>
             <div className="products__text"><p>Срок годности:</p> {date}</div>
             {admin ? <div className="products__action">
-                <Link to={'/product/edit'} className="products__icon"><i class="fa-solid fa-pen"></i></Link>
-                <div className="products__icon del"><i class="fa-solid fa-trash"></i></div>
+                <Link to={'/product/edit'} className="products__icon"><i className="fa-solid fa-pen"></i></Link>
+                <div className="products__icon del"><i className="fa-solid fa-trash"></i></div>
             </div> : null}
             <div className="products__count">
                 Кол-во: {count}

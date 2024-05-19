@@ -12,7 +12,7 @@ const AllowUsers = () => {
                             <div className="table__search">
                                 <input autoComplete='off' type="text" id='search' placeholder='Поиск по имени' />
                                 <label htmlFor="search">
-                                    <i class="fa-solid fa-magnifying-glass"></i>
+                                    <i className="fa-solid fa-magnifying-glass"></i>
                                 </label>
                             </div>
                         </div>
@@ -55,10 +55,10 @@ const AllowUsers = () => {
                                 </div>
                                 <div className="table__item">
                                     <div className="table__icon">
-                                        <i class="fa-solid fa-circle-check"></i>
+                                        <i className="fa-solid fa-circle-check"></i>
                                     </div>
                                     <div className="table__icon del">
-                                        <i class="fa-solid fa-trash"></i>
+                                        <i className="fa-solid fa-trash"></i>
                                     </div>
                                 </div>
                             </div>
@@ -74,7 +74,7 @@ const AllowUsers = () => {
                             <div className="table__search">
                                 <input autoComplete='off' type="text" id='search' placeholder='Поиск по имени' />
                                 <label htmlFor="search">
-                                    <i class="fa-solid fa-magnifying-glass"></i>
+                                    <i className="fa-solid fa-magnifying-glass"></i>
                                 </label>
                             </div>
                         </div>
@@ -117,10 +117,10 @@ const AllowUsers = () => {
                                 </div>
                                 <div className="table__item">
                                     <div className="table__icon">
-                                        <i class="fa-solid fa-circle-check"></i>
+                                        <i className="fa-solid fa-circle-check"></i>
                                     </div>
                                     <div className="table__icon del">
-                                        <i class="fa-solid fa-trash"></i>
+                                        <i className="fa-solid fa-trash"></i>
                                     </div>
                                 </div>
                             </div>

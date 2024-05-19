@@ -1,13 +1,21 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { Avatar, Dashboard, DashboardActive, Order, OrderActive, Purchase, PurchaseActive, Settings, SettingsActive, Stock, StockActive, Userslist, UserslistActive } from '../../images';
-import { Link, NavLink } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import MenuItem from '../menuItem/MenuItem';
 
 const Header = () => {
     const [open, setOpen] = useState(false);
-    const ref = useRef(null)
-    const [visible, setVisible] = useState(false);
+    const [header, setHeader] = useState(true);
     const menuRef = useRef(null);
+    const location = useLocation();
+
+    useEffect(() => {
+        if (location.pathname == '/login' || location.pathname == '/register')
+            setHeader(false);
+        else {
+            setHeader(true);
+        }
+    }, [location])
 
     useEffect(() => {
         const handleClose = (e) => {
@@ -16,15 +24,15 @@ const Header = () => {
             }
         }
 
-        document.addEventListener('mousedown', handleClose);
+        if (header) document.addEventListener('mousedown', handleClose);
 
         return () => {
-            document.removeEventListener('mousedown', handleClose);
+            if (header) document.removeEventListener('mousedown', handleClose);
         }
     })
 
     return (
-        <div className={'header' + (open ? ' open' : '')}>
+        header ? <div className={'header' + (open ? ' open' : '')}>
             <div className="header__menu menu" ref={menuRef}>
                 <div className="menu__logo">
                     {/* <div className="menu__img">
@@ -57,7 +65,7 @@ const Header = () => {
                     <MenuItem title={'Настройки'} img={Settings} imgActive={SettingsActive} list={[
                         { name: 'Профиль', link: '/profile' },
                         { name: 'Изменить', link: '/my/edit' },
-                        { name: 'Выйти', link: '/logout' },
+                        { name: 'Выйти', link: '/login' },
                     ]}>
                     </MenuItem>
                 </div>
@@ -78,7 +86,7 @@ const Header = () => {
                     </Link>
                 </div>
             </div>
-        </div>
+        </div> : null
     );
 };
 

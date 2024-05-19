@@ -18,7 +18,7 @@ const About = () => {
                         <div className="mission__item">
                             <div className="mission__top">
                                 <p>Удобство</p>
-                                <i class="fa-solid fa-wand-magic-sparkles"></i>
+                                <i className="fa-solid fa-wand-magic-sparkles"></i>
                             </div>
                             <div className="mission__text">
                                 Мы делаем заказы для ресторанов и поставщиков легкими и удобными.
@@ -27,7 +27,7 @@ const About = () => {
                         <div className="mission__item">
                             <div className="mission__top">
                                 <p>Поддержка</p>
-                                <i class="fa-solid fa-thumbs-up"></i>
+                                <i className="fa-solid fa-thumbs-up"></i>
                             </div>
                             <div className="mission__text">
                                 Наша миссия - помогать ресторанам расти и процветать.
@@ -36,7 +36,7 @@ const About = () => {
                         <div className="mission__item">
                             <div className="mission__top">
                                 <p>Партнерство</p>
-                                <i class="fa-solid fa-handshake"></i>
+                                <i className="fa-solid fa-handshake"></i>
                             </div>
                             <div className="mission__text">
                                 Мы стремимся к созданию долгосрочных и взаимовыгодных партнерств.

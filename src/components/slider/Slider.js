@@ -35,14 +35,14 @@ const Slider = () => {
                     setCount(count => count - 1)
                 }
             }}>
-                <i class="fa-solid fa-caret-left"></i>
+                <i className="fa-solid fa-caret-left"></i>
             </div>
             <div className="slider__arrow right" onClick={() => {
                 if (count < categories.length % 3) {
                     setCount(count => count + 1)
                 }
             }}>
-                <i class="fa-solid fa-caret-right"></i>
+                <i className="fa-solid fa-caret-right"></i>
             </div>
         </div>
     );

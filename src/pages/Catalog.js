@@ -19,7 +19,7 @@ const Catalog = () => {
                     <div className="manage__search">
                         <input type="text" placeholder='Поиск' />
                         <div className="manage__button">
-                            <i class="fa-solid fa-magnifying-glass"></i>
+                            <i className="fa-solid fa-magnifying-glass"></i>
                         </div>
                     </div>
                     <div className="manage__acts">

@@ -48,7 +48,7 @@ const Profile = () => {
                             <button>Сохранить</button>
                             <div className="desc__layer">
                                 <span>
-                                    <i class="fa-solid fa-file-pen"></i>
+                                    <i className="fa-solid fa-file-pen"></i>
                                 </span>
                             </div>
                         </div>}
