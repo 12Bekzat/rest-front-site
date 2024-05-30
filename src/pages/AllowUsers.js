@@ -1,6 +1,45 @@
-import React from 'react';
+import React, { useContext, useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { AuthContext } from '../providers/AuthProvider';
+import useMainService from '../services/MainService';
 
 const AllowUsers = () => {
+    const [users, setUsers] = useState([])
+    const { getWaitUsers, deleteUser, accessUser } = useMainService();
+
+    const nav = useNavigate();
+    const {isAuth, role} = useContext(AuthContext);
+    
+
+    const hanleUsers = () => {
+        getWaitUsers()
+            .then(data => {
+                console.log(data);
+                setUsers(data);
+            })
+            .catch(err => console.log(err));
+    }
+
+    const deleteUserEvent = (id) => {
+        deleteUser(id)
+            .then(() => {
+                hanleUsers();
+            })
+            .catch(err => console.log(err));
+    }
+
+    const accessUserEvent = (id) => {
+        accessUser(id)
+            .then(() => {
+                hanleUsers();
+            })
+            .catch(err => console.log(err));
+    }
+
+    useEffect(() => {
+        hanleUsers()
+    }, [])
+
     return (
         <div className='main'>
             <div className="main__row">
@@ -30,38 +69,40 @@ const AllowUsers = () => {
                             <div className="table__item">Действие</div>
                         </div>
                         <div className="table__data">
-                            <div className="table__info" style={
+                            {users.filter(item => item.role.includes("ROLE_REST")).map((item, index) => (<div key={item.id} className="table__info" style={
                                 { gridTemplateColumns: '1fr repeat(6, 2fr) 1fr' }}>
                                 <div className="table__item">
-                                    <div className="table__item-id">78954</div>
+                                    <div className="table__item-type id">{item.id}</div>
                                 </div>
                                 <div className="table__item">
-                                    Апель Агро
+                                    {item.name}
                                 </div>
                                 <div className="table__item">
-                                    Бекзат, Админ
+                                    {item.contactPerson}
                                 </div>
                                 <div className="table__item">
-                                    +7(705)489-48-49
+                                    {item.phone}
                                 </div>
                                 <div className="table__item">
-                                    apelagro@gmail.com
+                                    {item.email}
                                 </div>
                                 <div className="table__item">
-                                    08:00-22:00
+                                    {`${item.workTime}`}
                                 </div>
                                 <div className="table__item">
-                                    Жандосова 33/1
+                                    {item.address}
                                 </div>
                                 <div className="table__item">
-                                    <div className="table__icon">
+                                    <div className="table__icon"
+                                    onClick={() => accessUserEvent(item.id)}>
                                         <i className="fa-solid fa-circle-check"></i>
                                     </div>
-                                    <div className="table__icon del">
+                                    <div className="table__icon del"
+                                        onClick={() => deleteUserEvent(item.id)}>
                                         <i className="fa-solid fa-trash"></i>
                                     </div>
                                 </div>
-                            </div>
+                            </div>))}
                         </div>
                     </div>
                 </div>
@@ -92,38 +133,40 @@ const AllowUsers = () => {
                             <div className="table__item">Действие</div>
                         </div>
                         <div className="table__data">
-                            <div className="table__info" style={
+                            {users.filter(item => item.role.includes("ROLE_POST")).map((item, index) => (<div key={item.id} className="table__info" style={
                                 { gridTemplateColumns: '1fr repeat(6, 2fr) 1fr' }}>
                                 <div className="table__item">
-                                    <div className="table__item-id">78954</div>
+                                    <div className="table__item-type id">{item.id}</div>
                                 </div>
                                 <div className="table__item">
-                                    Апель Агро
+                                    {item.name}
                                 </div>
                                 <div className="table__item">
-                                    Бекзат, Админ
+                                    {item.contactPerson}
                                 </div>
                                 <div className="table__item">
-                                    +7(705)489-48-49
+                                    {item.phone}
                                 </div>
                                 <div className="table__item">
-                                    apelagro@gmail.com
+                                    {item.email}
                                 </div>
                                 <div className="table__item">
-                                    08:00-22:00
+                                    {`${item.workTime}`}
                                 </div>
                                 <div className="table__item">
-                                    Жандосова 33/1
+                                    {item.address}
                                 </div>
                                 <div className="table__item">
-                                    <div className="table__icon">
+                                    <div className="table__icon"
+                                    onClick={() => accessUserEvent(item.id)}>
                                         <i className="fa-solid fa-circle-check"></i>
                                     </div>
-                                    <div className="table__icon del">
+                                    <div className="table__icon del"
+                                        onClick={() => deleteUserEvent(item.id)}>
                                         <i className="fa-solid fa-trash"></i>
                                     </div>
                                 </div>
-                            </div>
+                            </div>))}
                         </div>
                     </div>
                 </div>

@@ -1,7 +1,13 @@
-import React from 'react';
+import React, { useContext, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { AuthContext } from '../providers/AuthProvider';
 import { AboutBanner1, ResmartBanner, Restaurant } from '../images';
 
 const About = () => {
+    const nav = useNavigate();
+    const {isAuth, role} = useContext(AuthContext);
+    
+
     return (
         <div className='main'>
             <div className="banner small">

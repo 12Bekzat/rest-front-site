@@ -1,13 +1,15 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { AuthContext } from '../providers/AuthProvider';
 import ReactInputMask from 'react-input-mask';
 import { Visa } from '../images';
 import { LoaderContext } from '../providers/LoaderProvider';
-import { useNavigate } from 'react-router-dom';
 
 const Payment = () => {
     const [error, setError] = useState(null);
     const { show, setShow, time } = useContext(LoaderContext);
     const nav = useNavigate();
+    const {isAuth, role} = useContext(AuthContext);
 
     const payed = () => {
         setShow(true);

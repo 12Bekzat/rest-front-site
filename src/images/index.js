@@ -30,5 +30,6 @@ import ResmartBanner from './resmart_banner.png';
 import Visa from './visa.png';
 import AboutBanner1 from './about1.png';
 import Restaurant from './restaurant.jpg';
+import NoLogo from './no-logo.jpg';
 
-export {Avatar, Accounts, AccountsActive, Arrow, Dashboard, DashboardActive, Manufacturer, ManufacturerActive, Medicine, MedicineActive, Order, OrderActive, Purchase, PurchaseActive, Reports, ReportsActive, Settings, SettingsActive, Stock, StockActive, Userslist, UserslistActive, Banner, Comfort, Transperent, Choice, Product, Fruits, ResmartBanner, Visa, AboutBanner1, Restaurant};
+export {Avatar, Accounts, AccountsActive, Arrow, Dashboard, DashboardActive, Manufacturer, ManufacturerActive, Medicine, MedicineActive, Order, OrderActive, Purchase, PurchaseActive, Reports, ReportsActive, Settings, SettingsActive, Stock, StockActive, Userslist, UserslistActive, Banner, Comfort, Transperent, Choice, Product, Fruits, ResmartBanner, Visa, AboutBanner1, Restaurant, NoLogo};

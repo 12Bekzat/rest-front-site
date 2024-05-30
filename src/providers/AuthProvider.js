@@ -7,10 +7,20 @@ export const AuthContext = React.createContext({ isAuth: false, role: [] });
 const AuthProvider = ({ children }) => {
     const [isAuth, setAuth] = useState(false);
     const [role, setRole] = useState([]);
+    const nav = useNavigate();
 
     useEffect(() => {
         if (getLocalStorageWithExpiry("token")) { setAuth(true); }
+        else {
+            nav("/login")
+        }
     }, [])
+
+    useEffect(() => {
+        if (!isAuth && !getLocalStorageWithExpiry("token")) {
+            nav('/login')
+        }
+    }, [isAuth])
 
     useEffect(() => {
         console.log("role", role);

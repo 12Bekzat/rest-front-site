@@ -1,9 +1,15 @@
-import React from 'react';
+import React, { useContext, useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { AuthContext } from '../providers/AuthProvider';
 import { Banner, Choice, Comfort, Product, Transperent } from '../images';
 import ProductsItem from '../components/productsItem/ProductsItem';
 import Slider from '../components/slider/Slider';
 
 const Home = () => {
+    const nav = useNavigate();
+    const {isAuth, role} = useContext(AuthContext);
+    
+    
     return (
         <div className='main'>
             <div className="banner">

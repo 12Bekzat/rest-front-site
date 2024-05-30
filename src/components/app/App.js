@@ -21,6 +21,7 @@ import { LoaderProvider } from '../../providers/LoaderProvider';
 import Profile from '../../pages/Profile';
 import Login from '../../pages/Login';
 import Register from '../../pages/Register';
+import LogOut from '../../pages/LogOut';
 
 function App() {
   return (
@@ -46,12 +47,12 @@ function App() {
             <Route path='/product/create' element={<CreateProduct />} />
             <Route path='/product/edit' element={<EditProduct />} />
             <Route path='/orders' element={<Orders />} />
-            <Route path='/cart' element={<Cart />} />
             <Route path='/payment' element={<Payment />} />
             <Route path='/profile' element={<Profile />} />
             <Route path='/my/edit' element={<EditUser my={true}/>} />
             <Route path='/login' element={<Login/>} />
             <Route path='/register' element={<Register/>} />
+            <Route path='/logout' element={<LogOut/>} />
           </Routes>
 
           <Footer />

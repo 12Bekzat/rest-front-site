@@ -1,6 +1,12 @@
-import React from 'react';
+import React, { useContext, useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { AuthContext } from '../providers/AuthProvider';
 
 const Orders = () => {
+    const nav = useNavigate();
+    const {isAuth, role} = useContext(AuthContext);
+    
+    
     return (
         <div className='main'>
             <div className="main__row" style={{maxWidth: '1200px'}}>

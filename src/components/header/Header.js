@@ -1,13 +1,27 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useContext, useEffect, useRef, useState } from 'react';
 import { Avatar, Dashboard, DashboardActive, Order, OrderActive, Purchase, PurchaseActive, Settings, SettingsActive, Stock, StockActive, Userslist, UserslistActive } from '../../images';
 import { Link, useLocation } from 'react-router-dom';
 import MenuItem from '../menuItem/MenuItem';
+import { AuthContext } from '../../providers/AuthProvider';
+import useMainService from '../../services/MainService';
 
 const Header = () => {
     const [open, setOpen] = useState(false);
     const [header, setHeader] = useState(true);
     const menuRef = useRef(null);
     const location = useLocation();
+    const { isAuth, setRole } = useContext(AuthContext);
+    const { getRoles } = useMainService();
+
+    useEffect(() => {
+        if (isAuth) {
+            getRoles()
+                .then(data => {
+                    setRole(data);
+                })
+                .catch(err => console.log(err));
+        }
+    }, [isAuth])
 
     useEffect(() => {
         if (location.pathname == '/login' || location.pathname == '/register')
@@ -60,12 +74,10 @@ const Header = () => {
                     </MenuItem>
                     <MenuItem title={'Заказы'} img={Order} imgActive={OrderActive} link={'/orders'}>
                     </MenuItem>
-                    <MenuItem title={'Корзина'} img={Purchase} imgActive={PurchaseActive} link={'/cart'}>
-                    </MenuItem>
                     <MenuItem title={'Настройки'} img={Settings} imgActive={SettingsActive} list={[
                         { name: 'Профиль', link: '/profile' },
                         { name: 'Изменить', link: '/my/edit' },
-                        { name: 'Выйти', link: '/login' },
+                        { name: 'Выйти', link: '/logout' },
                     ]}>
                     </MenuItem>
                 </div>

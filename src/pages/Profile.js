@@ -1,39 +1,64 @@
-import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import React, { useContext, useEffect, useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
+import useMainService from '../services/MainService';
+import { AuthContext } from '../providers/AuthProvider';
+import { NoLogo } from '../images';
 
 const Profile = () => {
     const [desc, setDesc] = useState(null);
     const [open, setOpen] = useState(false);
+    const { getMyUser } = useMainService()
+    const [info, setInfo] = useState({});
+
+    const nav = useNavigate();
+    const { isAuth, role } = useContext(AuthContext);
+    useEffect(() => {
+        if (!isAuth) nav('/login')
+    }, [isAuth])
+
+    const handleMyUser = () => {
+        getMyUser()
+            .then(data => {
+                setInfo(data)
+                setDesc(data.descText)
+            })
+            .catch(err => console.log(err));
+    }
+
+    useEffect(() => {
+
+        handleMyUser();
+    }, [])
 
     return (
         <div className='main'>
             <div className="main__row">
                 <div className="profile">
                     <div className="profile__img">
-                        <img src="https://restolife.kz/upload/information_system_6/1/9/5/item_1952/information_items_1952.png" alt="" />
+                        <img src={info ? (info.logotype ? info.logotype : NoLogo) : NoLogo} alt="" />
                     </div>
-                    <div className="profile__title">Апель Агро</div>
+                    <div className="profile__title">{info ? info.name : "Company Name"}</div>
                 </div>
                 <div className="contacts">
                     <div className="contacts__item">
                         <div className="contacts__title">Контактное лицо</div>
-                        <div className="contacts__text">Бекзат, Админстратор</div>
+                        <div className="contacts__text">{info ? info.contactPerson : "Somebody"}</div>
                     </div>
                     <div className="contacts__item">
                         <div className="contacts__title">Контактный телефон</div>
-                        <div className="contacts__text active">+7 (777)777 77 77</div>
+                        <div className="contacts__text active">{info ? info.phone : "+7(xxx)xxx-xx-xx"}</div>
                     </div>
                     <div className="contacts__item">
                         <div className="contacts__title">Почта для связей</div>
-                        <div className="contacts__text active">apelagro@gmail.com</div>
+                        <div className="contacts__text active">{info ? info.email : "Company email"}</div>
                     </div>
                     <div className="contacts__item">
                         <div className="contacts__title">Рабочие часы</div>
-                        <div className="contacts__text active">08:00-22:00</div>
+                        <div className="contacts__text active">{info ? info.workTime : "xx-xx:xx-xx"}</div>
                     </div>
                     <div className="contacts__item">
                         <div className="contacts__title">Рабочий адрес</div>
-                        <div className="contacts__text">г. Алматы, Жандосова 33/1</div>
+                        <div className="contacts__text">{info ? info.address : "Address"}</div>
                     </div>
                     <div className="contacts__item">
                         <div className="contacts__title">Действие</div>
@@ -42,7 +67,7 @@ const Profile = () => {
                 </div>
 
                 <div className="desc">
-                    {desc ? <div className="desc__text">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Earum ad inventore magnam. Voluptas voluptatum ullam in expedita, voluptatibus beatae id excepturi reiciendis quasi dolorem et. Nihil impedit facilis perspiciatis ipsam earum accusamus nobis cumque, perferendis dignissimos. Quis ex nostrum cum sapiente mollitia accusamus eligendi nihil fugiat id alias! Incidunt laborum quod numquam! Blanditiis, ut nisi voluptatum iure, inventore magni molestiae voluptates delectus rerum corporis aspernatur autem beatae, eos quia. At doloremque cum enim, vitae reiciendis nobis. Dignissimos debitis nesciunt laudantium?</div>
+                    {desc ? <div className="desc__text">{desc}</div>
                         : <div className={"desc__input" + (open ? ' open' : '')} onClick={() => setOpen(true)}>
                             <textarea placeholder='Введите описание'></textarea>
                             <button>Сохранить</button>

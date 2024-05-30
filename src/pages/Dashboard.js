@@ -1,9 +1,15 @@
-import React from 'react';
+import React, { useContext, useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { AuthContext } from '../providers/AuthProvider';
 import { Line } from 'react-chartjs-2';
 import { Chart as ChartJS, CategoryScale, LinearScale, PointElement, LineElement, Title, Tooltip, Legend } from 'chart.js';
 
 
 const DashboardPage = () => {
+    const nav = useNavigate();
+    const {isAuth, role} = useContext(AuthContext);
+    
+    
     return (
         <div className='main'>
             <div className="main__row">

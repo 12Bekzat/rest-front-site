@@ -4,7 +4,7 @@ import { getLocalStorageWithExpiry } from "./getLocalStorageWithExpiry";
 const useMainService = () => {
     const { loading, request, error, clearError } = useHttp();
 
-    const _apiBase = "http://rest.server.kz";
+    const _apiBase = "http://localhost:7171";
 
     const login = async (username, password) => {
         return await request(`${_apiBase}/login`, 'POST', JSON.stringify({ username, password }));
@@ -15,22 +15,69 @@ const useMainService = () => {
     }
 
     const getProducts = async () => {
-        return await request(`${_apiBase}/products`, 'GET', null);
+        const token = getLocalStorageWithExpiry('token');
+        if (token)
+            return await request(`${_apiBase}/products`, 'GET', null, { "Content-Type": 'application/json', "Authorization": `Bearer ${token.replace('"', '')}` });
+        return null;
     }
 
-    const setProduct = async (id) => {
-        return await request(`${_apiBase}/register`, 'POST', JSON.stringify(user));
+    const getRoles = async () => {
+        const token = getLocalStorageWithExpiry('token');
+        if (token)
+            return await request(`${_apiBase}/roles`, 'GET', null,
+                { "Content-Type": "application/json", "Authorization": `Bearer ${token.replace('"', '')}` });
+        return null;
     }
 
-    const getUsers = async (id) => {
-        return await request(`${_apiBase}/users/${id}`, 'POST', JSON.stringify({ username, password }));
+    const getUsers = async () => {
+        const token = getLocalStorageWithExpiry('token');
+        if (token)
+            return await request(`${_apiBase}/users`, 'GET', null,
+                { "Content-Type": "application/json", "Authorization": `Bearer ${token.replace('"', '')}` });
+        return null;
     }
 
-    const setUser = async (id, user) => {
-        return await request(`${_apiBase}/users/edit/${id}`, 'POST', JSON.stringify(user));
+    const getAllowUsers = async () => {
+        const token = getLocalStorageWithExpiry('token');
+        if (token)
+            return await request(`${_apiBase}/users/allow`, 'GET', null,
+                { "Content-Type": "application/json", "Authorization": `Bearer ${token.replace('"', '')}` });
+        return null;
     }
 
-    return { login, register };
+    const getWaitUsers = async () => {
+        const token = getLocalStorageWithExpiry('token');
+        if (token)
+            return await request(`${_apiBase}/users/wait`, 'GET', null,
+                { "Content-Type": "application/json", "Authorization": `Bearer ${token.replace('"', '')}` });
+        return null;
+    }
+
+    const deleteUser = async (id) => {
+        const token = getLocalStorageWithExpiry('token');
+        if (token)
+            return await request(`${_apiBase}/users/${id}/remove`, 'POST', null,
+                { "Content-Type": "application/json", "Authorization": `Bearer ${token.replace('"', '')}` });
+        return null;
+    }
+
+    const accessUser = async (id) => {
+        const token = getLocalStorageWithExpiry('token');
+        if (token)
+            return await request(`${_apiBase}/users/${id}/access`, 'POST', null,
+                { "Content-Type": "application/json", "Authorization": `Bearer ${token.replace('"', '')}` });
+        return null;
+    }
+
+    const getMyUser = async () => {
+        const token = getLocalStorageWithExpiry('token');
+        if (token)
+            return await request(`${_apiBase}/my`, 'GET', null,
+                { "Content-Type": "application/json", "Authorization": `Bearer ${token.replace('"', '')}` });
+        return null;
+    }
+
+    return { login, register, getProducts, getRoles, getUsers, getAllowUsers, getWaitUsers, deleteUser, accessUser, getMyUser, loading, error };
 }
 
 export default useMainService;

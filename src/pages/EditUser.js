@@ -1,7 +1,12 @@
-import React, { useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { AuthContext } from '../providers/AuthProvider';
 
 const EditUser = ({ my }) => {
     const [error, setError] = useState(null);
+    const nav = useNavigate();
+    const {isAuth, role} = useContext(AuthContext);
+    
 
     return (
         <div className='main' style={{ justifyContent: 'center' }}>
