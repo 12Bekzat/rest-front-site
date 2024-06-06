@@ -1,15 +1,27 @@
 import React, { useContext, useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { AuthContext } from '../providers/AuthProvider';
 import { Banner, Choice, Comfort, Product, Transperent } from '../images';
 import ProductsItem from '../components/productsItem/ProductsItem';
 import Slider from '../components/slider/Slider';
+import useMainService from '../services/MainService';
 
 const Home = () => {
     const nav = useNavigate();
-    const {isAuth, role} = useContext(AuthContext);
-    
-    
+    const { isAuth, role } = useContext(AuthContext);
+    const { getProducts, getCategories } = useMainService();
+    const [products, setProducts] = useState([]);
+
+    const handleProducts = () => {
+        getProducts()
+            .then(data => setProducts(data))
+            .catch(err => console.log(err));
+    }
+
+    useEffect(() => {
+        handleProducts();
+    }, [])
+
     return (
         <div className='main'>
             <div className="banner">
@@ -50,33 +62,27 @@ const Home = () => {
 
                 <div className="title">Скидки и акции</div>
                 <div className="products">
-                    <ProductsItem
-                        img={Product}
-                        name={'Овощи ассорти 1кг'}
-                        price={'2 090'}
-                        oldPrice={2590}
-                        tags={['-10%']} />
-                    <ProductsItem
-                        img={Product}
-                        name={'Овощи ассорти 1кг'}
-                        price={'2 090'}
-                        oldPrice={2590}
-                        tags={['-10%']} />
-                    <ProductsItem
-                        img={Product}
-                        name={'Овощи ассорти 1кг'}
-                        price={'2 090'}
-                        oldPrice={2590}
-                        tags={['-10%']} />
-                    <ProductsItem
-                        img={Product}
-                        name={'Овощи ассорти 1кг'}
-                        price={'2 090'}
-                        oldPrice={2590}
-                        tags={['-10%']} />
+                    {products
+                        .filter(item => item.deleted !== true)
+                        .map(item => <ProductsItem
+                            key={item.id}
+                            id={item.id}
+                            img={item.imageUrl}
+                            name={item.name}
+                            price={item.discount ? item.price - ((item.price * item.discount) / 100) :
+                                item.price
+                            }
+                            oldPrice={item.discount ? item.price : null}
+                            tags={item.discount ? ['-' + item.discount + '%'] : []}
+                            count={item.count}
+                            date={item.expiredDate} />)}
                 </div>
-                <div className="title">Категории</div>
-                <Slider />
+                <div className="line">
+                    <div className="title">Категории</div>
+                    {role.filter(item => item.name === "ROLE_ADMIN").length > 0 ?
+                        <Link to={'/category/create'} className={'link'}>Создать</Link> : null}
+                </div>
+                <Slider/>
             </div>
         </div>
     );

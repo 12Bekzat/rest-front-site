@@ -3,12 +3,30 @@ import { useNavigate } from 'react-router-dom';
 import { AuthContext } from '../providers/AuthProvider';
 import ProductsItem from '../components/productsItem/ProductsItem';
 import { Product } from '../images';
+import useMainService from '../services/MainService';
 
 const Products = () => {
     const nav = useNavigate();
-    const {isAuth, role} = useContext(AuthContext);
-    
-    
+    const { isAuth, role } = useContext(AuthContext);
+    const { getMyUser, getMyProducts } = useMainService();
+    const [products, setProducts] = useState([])
+
+    const handleProducts = () => {
+        getMyUser()
+            .then(data => {
+                getMyProducts(data.id)
+                    .then(pds => {
+                        setProducts(pds)
+                    })
+                    .catch(err => console.log(err));
+            })
+            .catch(err => console.log(err));
+    }
+
+    useEffect(() => {
+        handleProducts();
+    }, [])
+
     return (
         <div className='main'>
             <div className="main__row">
@@ -26,43 +44,22 @@ const Products = () => {
                         </div>
                     </div>
                     <div className="table__products products">
-                        <ProductsItem
-                            img={Product}
-                            name={'Овощи ассорти 1кг'}
-                            price={'2 090'}
-                            oldPrice={2590}
-                            tags={['-10%']}
-                            admin={true}
-                            count={50}
-                            date={'12.09.2024'} />
-                        <ProductsItem
-                            img={Product}
-                            name={'Овощи ассорти 1кг'}
-                            price={'2 090'}
-                            oldPrice={2590}
-                            tags={['-10%']}
-                            admin={true}
-                            count={50}
-                            date={'12.09.2024'} />
-                        <ProductsItem
-                            img={Product}
-                            name={'Овощи ассорти 1кг'}
-                            price={'2 090'}
-                            oldPrice={2590}
-                            tags={['-10%']}
-                            admin={true}
-                            count={50}
-                            date={'12.09.2024'} />
-                        <ProductsItem
-                            img={Product}
-                            name={'Овощи ассорти 1кг'}
-                            price={'2 090'}
-                            oldPrice={2590}
-                            tags={['-10%']}
-                            admin={true}
-                            count={50}
-                            date={'12.09.2024'} />
-
+                        {products.filter(item => item.deleted !== true).map((item, index) => (
+                            <ProductsItem
+                                key={item.id}
+                                update={handleProducts}
+                                id={item.id}
+                                img={item.imageUrl}
+                                name={item.name}
+                                price={item.discount ? item.price - ((item.price * item.discount) / 100) :
+                                    item.price
+                                }
+                                oldPrice={item.discount ? item.price : null}
+                                tags={item.discount ? ['-' + item.discount + '%'] : []}
+                                admin={true}
+                                count={item.count}
+                                date={item.expiredDate} />
+                        ))}
                     </div>
                 </div>
             </div>

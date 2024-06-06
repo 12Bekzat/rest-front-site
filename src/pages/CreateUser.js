@@ -1,12 +1,49 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { AuthContext } from '../providers/AuthProvider';
+import useMainService from '../services/MainService';
 
 const CreateUser = () => {
     const [error, setError] = useState(null);
+    const [pass, setPass] = useState(true);
     const nav = useNavigate();
     const {isAuth, role} = useContext(AuthContext);
-    
+    const [roleUser, setRoleUser] = useState('ROLE_REST');
+    const [name, setName] = useState('');
+    const [contactPerson, setContactPerson] = useState('');
+    const [contactPhone, setContactPhone] = useState('');
+    const [email, setEmail] = useState('');
+    const [toTime, setToTime] = useState('');
+    const [fromTime, setFromTime] = useState('');
+    const [address, setAddress] = useState('');
+    const [desc, setDesc] = useState('');
+    const [logotype, setLogotype] = useState('');
+    const [password, setPassword] = useState('');
+    const {register} = useMainService();
+
+    const regEvent = () => {
+        const user = {
+            username: email,
+            password,
+            email,
+            contactPerson,
+            contactPhone,
+            name,
+            address,
+            descText: desc,
+            logotype,
+            workTime: toTime + ':' + fromTime,
+            role: roleUser,
+        }
+
+        console.log(user);
+
+        register(user)
+            .then(() => {
+                nav('/users/allow')
+            })
+            .catch(err => console.log(err));
+    }
 
     return (
         <div className='main' style={{ justifyContent: 'center' }}>
@@ -16,27 +53,62 @@ const CreateUser = () => {
                     {error}
                 </div> : null}
                 <div className="form__data">
-                    <div className="form__input">
-                        <input type="text" placeholder='Название' />
+                    <div className="form__select">
+                        <p>
+                            Аккаунт:
+                        </p>
+                        <select onChange={e => {
+                            console.log(e.target.value);
+                            setRoleUser(e.target.value)
+                        }}>
+                            <option value="ROLE_REST">Ресторан</option>
+                            <option value="ROLE_POST">Поставщик</option>
+                        </select>
                     </div>
                     <div className="form__input">
-                        <input type="text" placeholder='Контактное лицо' />
+                        <input type="text" placeholder='Название'
+                            value={name} onChange={e => setName(e.target.value)} />
                     </div>
                     <div className="form__input">
-                        <input type="text" placeholder='Контактный телефон' />
+                        <input type="text" placeholder='Контактное лицо'
+                            value={contactPerson} onChange={e => setContactPerson(e.target.value)} />
                     </div>
                     <div className="form__input">
-                        <input type="text" placeholder='Email' />
+                        <input type="text" placeholder='Контактный телефон'
+                            value={contactPhone} onChange={e => setContactPhone(e.target.value)} />
                     </div>
                     <div className="form__input">
-                        От: <input type='time' placeholder='Email' />
-                        До: <input type='time' placeholder='Email' />
+                        <input type="text" placeholder='Email'
+                            value={email} onChange={e => setEmail(e.target.value)} />
                     </div>
                     <div className="form__input">
-                        <textarea placeholder='Введите адрес'></textarea>
+                        От: <input type='time' placeholder='Email'
+                            value={toTime} onChange={e => setToTime(e.target.value)} />
+                        До: <input type='time' placeholder='Email'
+                            value={fromTime} onChange={e => setFromTime(e.target.value)} />
+                    </div>
+                    <div className="form__input">
+                        <input type="text" placeholder='Логотип(url)'
+                            value={logotype} onChange={e => setLogotype(e.target.value)} />
+                    </div>
+                    <div className="form__input">
+                        <textarea placeholder='Введите адрес'
+                            value={address} onChange={e => setAddress(e.target.value)}></textarea>
+                    </div>
+                    <div className="form__input">
+                        <textarea placeholder='Об органзации(200 слов)'
+                            value={desc} onChange={e => setDesc(e.target.value)}></textarea>
+                    </div>
+                    <div className="form__input">
+                        <input type={pass ? "password" : 'text'} placeholder='Пароль'
+                            value={password} onChange={e => setPassword(e.target.value)} />
+                        <div className="form__ex" onClick={() => setPass(pass => !pass)}>
+                            {pass ? <i className="fa-solid fa-eye-slash"></i> :
+                                <i className="fa-solid fa-eye"></i>}
+                        </div>
                     </div>
                 </div>
-                <div className="form__button">Создать</div>
+                <div className="form__button" onClick={regEvent}>Создать</div>
             </div>
         </div>
     );

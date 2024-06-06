@@ -475,6 +475,28 @@
         }
     }
 
+    &__button {
+        width: 100%;
+        height: 32px;
+        color: white;
+        margin-top: 12px;
+        border-radius: 8px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-weight: 600;
+        font-size: 14px;
+        background: crimson;
+        border: 2px solid crimson;
+        transition: .3s;
+
+        &.active {
+            background: white;
+            color: crimson;
+            transition: .3s;
+        }
+    }
+
     &__action {
         margin-top: 12px;
         width: 100%;
@@ -722,6 +744,7 @@
         color: crimson;
         font-weight: 600;
         font-size: 14px;
+        text-wrap: nowrap;
         display: flex;
         align-items: center;
         justify-content: center;
@@ -733,7 +756,7 @@
             transition: .3s;
         }
 
-        &.desc {
+        &.third {
             border-color: cornflowerblue;
             color: cornflowerblue;
             transition: .3s;
@@ -750,7 +773,7 @@
             transition: .3s;
         }
 
-        &.active.desc {
+        &.active.third {
             background: cornflowerblue;
             transition: .3s;
         }
@@ -1568,4 +1591,75 @@
     display: flex;
     height: 100%;
     justify-content: center;
+}
+
+.line {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 100px;
+
+    .title {
+        margin: 0;
+    }
+}
+
+.link {
+    font-size: 15px;
+    color: #2A8EC0;
+}
+
+.button {
+    cursor: pointer;
+    width: 300px;
+    height: 34px;
+    border-radius: 8px;
+    display: flex;
+    font-size: 14px;
+    background: crimson;
+    font-weight: 600;
+    color: white;
+    justify-content: center;
+    align-items: center;
+}
+
+.draw {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+
+    &__filter {
+        width: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: flex-start;
+        gap: 12px;
+    }
+
+    &__input {
+        width: 200px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        input {
+            width: 100%;
+            height: 40px;
+            border-radius: 8px;
+            border: 1px solid #aba4a4;
+            padding-left: 15px;
+            outline: none;
+
+            &.error {
+                border-color: crimson;
+            }
+        }
+    }
+
+    &__data {
+        width: 100%;
+        display: flex;
+    }
 }

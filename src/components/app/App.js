@@ -10,7 +10,7 @@ import Users from '../../pages/Users';
 import CreateUser from '../../pages/CreateUser';
 import EditUser from '../../pages/EditUser';
 import AllowUsers from '../../pages/AllowUsers';
-import DashboardPage from '../../pages/Dashboard';
+import DashboardPage from '../../pages/DashboardPage';
 import Products from '../../pages/Products';
 import CreateProduct from '../../pages/CreateProduct';
 import EditProduct from '../../pages/EditProduct';
@@ -22,6 +22,10 @@ import Profile from '../../pages/Profile';
 import Login from '../../pages/Login';
 import Register from '../../pages/Register';
 import LogOut from '../../pages/LogOut';
+import CreateCategory from '../../pages/CreateCategory';
+import OrdersPost from '../../pages/OrdersPost';
+import DashboardProds from '../../pages/DasboardProds';
+import EditOrder from '../../pages/EditOrder';
 
 function App() {
   return (
@@ -41,17 +45,21 @@ function App() {
             <Route path='/users' element={<Users />} />
             <Route path='/user/allow' element={<AllowUsers />} />
             <Route path='/user/create' element={<CreateUser />} />
-            <Route path='/user/edit' element={<EditUser />} />
+            <Route path='/user/edit/:id' element={<EditUser />} />
             <Route path='/dashboard' element={<DashboardPage />} />
             <Route path='/products' element={<Products />} />
             <Route path='/product/create' element={<CreateProduct />} />
-            <Route path='/product/edit' element={<EditProduct />} />
+            <Route path='/product/edit/:id' element={<EditProduct />} />
+            <Route path='/orders/edit/:id' element={<EditOrder />} />
             <Route path='/orders' element={<Orders />} />
+            <Route path='/orders/post' element={<OrdersPost />} />
             <Route path='/payment' element={<Payment />} />
             <Route path='/profile' element={<Profile />} />
             <Route path='/my/edit' element={<EditUser my={true}/>} />
             <Route path='/login' element={<Login/>} />
             <Route path='/register' element={<Register/>} />
+            <Route path='/category/create' element={<CreateCategory/>} />
+            <Route path='/dashboard/products' element={<DashboardProds/>} />
             <Route path='/logout' element={<LogOut/>} />
           </Routes>
 

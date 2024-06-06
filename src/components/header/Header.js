@@ -8,10 +8,11 @@ import useMainService from '../../services/MainService';
 const Header = () => {
     const [open, setOpen] = useState(false);
     const [header, setHeader] = useState(true);
+    const [user, setUser] = useState(null);
     const menuRef = useRef(null);
     const location = useLocation();
-    const { isAuth, setRole } = useContext(AuthContext);
-    const { getRoles } = useMainService();
+    const { isAuth, setRole, role } = useContext(AuthContext);
+    const { getRoles, getMyUser } = useMainService();
 
     useEffect(() => {
         if (isAuth) {
@@ -19,6 +20,10 @@ const Header = () => {
                 .then(data => {
                     setRole(data);
                 })
+                .catch(err => console.log(err));
+
+            getMyUser()
+                .then(data => setUser(data))
                 .catch(err => console.log(err));
         }
     }, [isAuth])
@@ -53,27 +58,34 @@ const Header = () => {
                         <img src="" alt="" />
                     </div> */}
                     <div className="menu__my">
-                        T
+                        {user ? user.name[0] : 'T'}
                     </div>
-                    <div className="menu__title">Tomato</div>
+                    <div className="menu__title">{user ? user.name : 'Tomato'}</div>
                 </div>
                 <div className="menu__links">
-                    <MenuItem title={'Dashboard'} img={Dashboard} imgActive={DashboardActive} link={'/dashboard'} >
-                    </MenuItem>
-                    <MenuItem title={'Пользователи'} img={Userslist} imgActive={UserslistActive} list={[
+                    {role.filter(item => item.name === "ROLE_POST").length > 0 ? <MenuItem title={'Dashboard'} img={Dashboard} imgActive={DashboardActive} list={
+                        [{ name: 'Общая статистика', link: '/dashboard' },
+                        { name: 'Продукты', link: '/dashboard/products' },
+                        ]
+                    } >
+                    </MenuItem> : null}
+                    {role.filter(item => item.name === "ROLE_ADMIN").length > 0 ? <MenuItem title={'Пользователи'} img={Userslist} imgActive={UserslistActive} list={[
                         { name: 'Список', link: '/users' },
                         { name: 'Подтвердить', link: '/user/allow' },
                         { name: 'Создать', link: '/user/create' },
-                        { name: 'Изменить', link: '/user/edit' },
                     ]}>
-                    </MenuItem>
-                    <MenuItem title={'Продукты'} img={Stock} imgActive={StockActive} list={[
-                        { name: 'Список', link: '/products' },
-                        { name: 'Создать', link: '/product/create' },
-                    ]}>
-                    </MenuItem>
-                    <MenuItem title={'Заказы'} img={Order} imgActive={OrderActive} link={'/orders'}>
-                    </MenuItem>
+                    </MenuItem> : null}
+                    {role.filter(item => item.name === "ROLE_POST").length > 0 ?
+                        <MenuItem title={'Продукты'} img={Stock} imgActive={StockActive} list={[
+                            { name: 'Список', link: '/products' },
+                            { name: 'Создать', link: '/product/create' },
+                        ]}>
+                        </MenuItem> : null}
+                    {role.filter(item => item.name === "ROLE_ADMIN").length > 0 ? null :
+                        <MenuItem title={'Заказы'} img={Order} imgActive={OrderActive} link={
+                            role.filter(item => item.name === "ROLE_POST").length > 0 ? '/orders/post' : '/orders'
+                        }>
+                        </MenuItem>}
                     <MenuItem title={'Настройки'} img={Settings} imgActive={SettingsActive} list={[
                         { name: 'Профиль', link: '/profile' },
                         { name: 'Изменить', link: '/my/edit' },
@@ -92,9 +104,9 @@ const Header = () => {
                     <Link to={'/about'} className="header__link">О нас</Link>
                     <Link to={'/profile'} className="header__acc">
                         <div className="header__img">
-                            <img src={Avatar} alt="" />
+                            <img src={user ? user.logotype : Avatar} alt="" />
                         </div>
-                        <div className="header__name">IITU</div>
+                        <div className="header__name">{user ? user.username : 'no acc'}</div>
                     </Link>
                 </div>
             </div>

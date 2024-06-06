@@ -1,9 +1,21 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import ProductsItem from '../components/productsItem/ProductsItem';
 import { Product } from '../images';
 import { Link } from 'react-router-dom';
+import useMainService from '../services/MainService';
 
 const Cart = () => {
+    const { getCart } = useMainService();
+    const [cart, setCart] = useState(null);
+
+    useEffect(() => {
+        getCart()
+            .then(data => setCart(data))
+            .catch(err => console.log(err));
+    }, [])
+
+    console.log(cart);
+
     return (
         <div className='main'>
             <div className="main__row">

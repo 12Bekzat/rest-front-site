@@ -1,15 +1,17 @@
 import React, { useContext, useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { AuthContext } from '../providers/AuthProvider';
 import useMainService from '../services/MainService';
 
 const Users = () => {
     const [users, setUsers] = useState([])
+    const [searchRest, setSearchRest] = useState('')
+    const [searchPost, setSearchPost] = useState('')
     const { getAllowUsers, deleteUser, accessUser } = useMainService();
 
     const nav = useNavigate();
-    const {isAuth, role} = useContext(AuthContext);
-    
+    const { isAuth, role } = useContext(AuthContext);
+
 
     const hanleUsers = () => {
         getAllowUsers()
@@ -49,7 +51,8 @@ const Users = () => {
                         <div className="table__row"></div>
                         <div className="table__row">
                             <div className="table__search">
-                                <input autoComplete='off' type="text" id='search' placeholder='Поиск по имени' />
+                                <input autoComplete='off' type="text" id='search' placeholder='Поиск по имени' 
+                                value={searchRest} onChange={e => setSearchRest(e.target.value)}/>
                                 <label htmlFor="search">
                                     <i className="fa-solid fa-magnifying-glass"></i>
                                 </label>
@@ -69,7 +72,9 @@ const Users = () => {
                             <div className="table__item">Действие</div>
                         </div>
                         <div className="table__data">
-                            {users.filter(item => item.role.includes("ROLE_REST")).map((item, index) => (<div key={item.id} className="table__info" style={
+                            {users.filter(item => item.role.includes("ROLE_REST"))
+                            .filter(item => item.name.toLowerCase().includes(searchRest.toLowerCase()))
+                            .map((item, index) => (<div key={item.id} className="table__info" style={
                                 { gridTemplateColumns: '1fr repeat(6, 2fr) 1fr' }}>
                                 <div className="table__item">
                                     <div className="table__item-type id">{item.id}</div>
@@ -93,10 +98,9 @@ const Users = () => {
                                     {item.address}
                                 </div>
                                 <div className="table__item">
-                                    <div className="table__icon"
-                                        onClick={() => accessUserEvent(item.id)}>
+                                    <Link to={"/user/edit/" + item.id} className="table__icon">
                                         <i className="fa-solid fa-pen"></i>
-                                    </div>
+                                    </Link>
                                     <div className="table__icon del"
                                         onClick={() => deleteUserEvent(item.id)}>
                                         <i className="fa-solid fa-trash"></i>
@@ -113,12 +117,13 @@ const Users = () => {
                         <div className="table__row"></div>
                         <div className="table__row">
                             <div className="table__search">
-                                <input autoComplete='off' type="text" id='search' placeholder='Поиск по имени' />
+                                <input autoComplete='off' type="text" id='search' placeholder='Поиск по имени' 
+                                value={searchPost} onChange={e => setSearchPost(e.target.value)}/>
                                 <label htmlFor="search">
                                     <i className="fa-solid fa-magnifying-glass"></i>
                                 </label>
                             </div>
-                        </div>
+                        </div>  
                     </div>
                     <div className="table__body">
                         <div className="table__top" style={
@@ -133,7 +138,9 @@ const Users = () => {
                             <div className="table__item">Действие</div>
                         </div>
                         <div className="table__data">
-                            {users.filter(item => item.role.includes("ROLE_POST")).map((item, index) => (<div key={item.id} className="table__info" style={
+                            {users.filter(item => item.role.includes("ROLE_POST"))
+                            .filter(item => item.name.toLowerCase().includes(searchPost.toLowerCase()))
+                            .map((item, index) => (<div key={item.id} className="table__info" style={
                                 { gridTemplateColumns: '1fr repeat(6, 2fr) 1fr' }}>
                                 <div className="table__item">
                                     <div className="table__item-type id">{item.id}</div>
@@ -157,10 +164,9 @@ const Users = () => {
                                     {item.address}
                                 </div>
                                 <div className="table__item">
-                                    <div className="table__icon"
-                                        onClick={() => accessUserEvent(item.id)}>
+                                    <Link to={"/user/edit/" + item.id} className="table__icon">
                                         <i className="fa-solid fa-pen"></i>
-                                    </div>
+                                    </Link>
                                     <div className="table__icon del"
                                         onClick={() => deleteUserEvent(item.id)}>
                                         <i className="fa-solid fa-trash"></i>
