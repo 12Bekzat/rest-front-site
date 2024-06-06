@@ -4,7 +4,7 @@ import { getLocalStorageWithExpiry } from "./getLocalStorageWithExpiry";
 const useMainService = () => {
     const { loading, request, error, clearError } = useHttp();
 
-    const _apiBase = "http://localhost:7171";
+    const _apiBase = "https://resmart-back.onrender.com";
 
     const login = async (username, password) => {
         return await request(`${_apiBase}/login`, 'POST', JSON.stringify({ username, password }));
